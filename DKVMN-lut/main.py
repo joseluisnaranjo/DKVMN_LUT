@@ -1,17 +1,17 @@
 import tensorflow._api.v2.compat.v1 as tf
 import numpy as np
 from model import Model
-import os, time, argparse	##argpse模块为了向命令行传递参数
+import os, time, argparse	#module for passing arguments to the command line
 from data_loader import *
 tf.compat.v1.disable_eager_execution()
 
 def main():
-	parser = argparse.ArgumentParser()							##首先创建ArgumentParser对象，作为一个解析器
-	parser.add_argument('--num_epochs', type=int, default=10)		##对象调用添加属性方法，添加参数信息 num_epochs,整形，默认300
-	parser.add_argument('--train', type=str2bool, default='t')		##自定义的str2bool类型，传入参数't'
-	parser.add_argument('--init_from', type=str2bool, default='t')
-	parser.add_argument('--show', type=str2bool, default='f')
-	parser.add_argument('--checkpoint_dir', type=str, default='checkpoint')		##log_dir和data_dir的值设定好了
+	parser = argparse.ArgumentParser()							#First create the ArgumentParser object as a parser
+	parser.add_argument('--num_epochs', type=int, default=50)		##Object call add attribute method, add parameter information num_epochs,type, default 50
+	parser.add_argument('--train', type=str2bool, default='yes')		#Custom str2bool type, pass in parameter 'yes= training or no=testing'
+	parser.add_argument('--init_from', type=str2bool, default='yes')
+	parser.add_argument('--show', type=str2bool, default='false')
+	parser.add_argument('--checkpoint_dir', type=str, default='checkpoint')		#The values of log_dir and data_dir are set
 	parser.add_argument('--log_dir', type=str, default='logs')
 	parser.add_argument('--data_dir', type=str, default='data')
 	parser.add_argument('--anneal_interval', type=int, default=20)
@@ -19,7 +19,7 @@ def main():
 	parser.add_argument('--momentum', type=float, default=0.9)
 	parser.add_argument('--initial_lr', type=float, default=0.05)
 	# synthetic / assist2009_updated / assist2015 / STATIC
-	dataset = 'assist2009_updated'		#数据集的选择，根据不同的数据集再定义相关的数据格式
+	dataset = 'assist2009_updated'		#Data set selection, redefine the relevant data format according to different data sets
 
 	if dataset == 'assist2009_updated':
 		parser.add_argument('--batch_size', type=int, default=32)
@@ -28,7 +28,7 @@ def main():
 		parser.add_argument('--memory_value_state_dim', type=int, default=200)
 		parser.add_argument('--final_fc_dim', type=int, default=50)
 		parser.add_argument('--n_questions', type=int, default=110)
-		parser.add_argument('--seq_len', type=int, default=200)
+		parser.add_argument('--seq_len', type=int, default=200) #Este valor sera la longitud de los vectores que se procesaran, si para un determinado ejercicio el numero de preguntas y respuestas se dividira en bloques de este tamano y se completara el restante con ceros
 
 	elif dataset == 'synthetic':
 		parser.add_argument('--batch_size', type=int, default=32)

@@ -73,7 +73,7 @@ class DATA_LOADER():
                         # answers in {0,1}，计算qa值，答对值得出qa更大，
                         qa_values = int(q_tag_list[i]) + int(answer_list[i]) * self.n_questions
                         q_container.append(int(q_tag_list[i]))
-                        qa_container.append(qa_values)
+                        qa_container.append(qa_values) # esta valor consiste en el numero de ejercicio mas (num preguntas) o mas zero dependiendo de si la restuesta al el ejercicio fue correcta o no
                         print('Question tag : %s, Answer : %s, QA : %s' % (q_tag_list[i], answer_list[i], qa_values))
                     # List of list(seq_len, seq_len, seq_len, less than seq_len, seq_len, seq_len...
                     #两个列表，内容元素也为列表，q_data的元素为q_container,q_container为存储每一位学生答题标签的列表
@@ -82,7 +82,7 @@ class DATA_LOADER():
         f_data.close()
         # print(len(q_data))试试q_data多长，在assist2009_updated数据集情况下为740，即所有用到seq_len有740，有不满200，有超过200的学生
         # Convert it to numpy array	转换为numpy矩阵
-        q_data_array = np.zeros((len(q_data), self.seq_len))    #q_data_array为所有n_split长度数之和*seq_len的全为0的矩阵
+        q_data_array = np.zeros((len(q_data), self.seq_len))    #q_data_arrayes una matriz con todos las preguntas en filas de 200 y completado con zeros en por cada ejercicio si no fuere multiplo de 200 que es la mayoria de casos
         for i in range(len(q_data)):                            #该数据集情况下从0到739循环，
             data = q_data[i]                                    #data中间变量
             # if q_data[i] less than seq_len, remainder would be 0
