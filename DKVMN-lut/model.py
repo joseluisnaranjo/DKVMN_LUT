@@ -156,10 +156,11 @@ class Model():
 			if os.path.exists(os.path.join(self.args.checkpoint_dir, self.model_dir)):
 				try:
 					shutil.rmtree(os.path.join(self.args.checkpoint_dir, self.model_dir))
-					shutil.rmtree(os.path.join(self.args.log_dir, self.mode_dir+'.csv'))
+					shutil.rmtree(os.path.join(self.args.log_dir, self.model_dir+'.csv'))
 				except(FileNotFoundError, IOError) as e:
 					print('[Delete Error] %s - %s' % (e.filename, e.strerror))
-		
+		all_accuracy = list()
+
 		best_valid_auc = 0
 
 		# Training
@@ -171,7 +172,7 @@ class Model():
 			target_list = list()		
 			epoch_loss = 0
 			learning_rate = tf.train.exponential_decay(self.args.initial_lr, global_step=self.global_step, decay_steps=self.args.anneal_interval*training_step, decay_rate=0.667, staircase=True)
-			all_accuracy = list()
+			
 			#print('Epoch %d starts with learning rate : %3.5f' % (epoch+1, self.sess.run(learning_rate)))
 			for steps in xrange(training_step):
 				# [batch size, seq_len]
@@ -257,7 +258,7 @@ class Model():
 				best_epoch = epoch + 1
 				self.save(best_epoch)
 
-		plt.plot(list(range(self.args.num_epochs)), self.accuracy)
+		plt.plot(list(range(self.args.num_epochs)), all_accuracy)
 		plt.title("Change diagram of prediction accuracy")
 		plt.xlabel("epochs")
 		plt.ylabel("accuracy")
