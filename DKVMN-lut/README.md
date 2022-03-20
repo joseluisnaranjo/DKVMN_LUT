@@ -7,6 +7,7 @@ Reference
   * [Dynamic Key Valuy Memory Network](https://arxiv.org/abs/1611.08108)
   * [Deep Knowledge Tracing](https://arxiv.org/abs/1506.05908)
 
+
 Utiles:
 It is recommendable to install anaconda to manage packages and environments, the miniconda version can be download here:
 https://conda.io/projects/conda/en/latest/user-guide/install/index.html
@@ -38,4 +39,5 @@ Since the last run was done with 50 epoch , in the check points the fiiles conta
 for an accuracy of 72.11 and AUC: 0.74756
 
 the parameter train:  yes=trainning or no=testing
+
 
